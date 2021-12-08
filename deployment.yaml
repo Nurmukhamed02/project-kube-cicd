@@ -2,78 +2,36 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: beka
+  labels:
+    app: web
+  name: mynginx
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: beka
+      app: web
   template:
     metadata:
       labels:
-        app: beka
+        app: web
     spec:
       containers:
-      - name: beka
-        image: nginx:latest
-        imagePullPolicy: Always
-        lifecycle:
-          postStart:
-            exec:
-              command: ["/bin/bash", "-c", "echo 'BEKA' > /usr/share/nginx/html/index.html"]
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nur
-spec:
-  selector:
-    matchLabels:
-      app: nur
-  template:
-    metadata:
-      labels:
-        app: nur
-    spec:
-      containers:
-      - name: nur
-        image: nginx:latest
-        imagePullPolicy: Always
-        lifecycle:
-          postStart:
-            exec:
-              command: ["/bin/bash", "-c", "echo 'NURMUKHAMMED' > /usr/share/nginx/html/index.html"]
+      - image: nginx
+        name: mynginx
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: beka-service
   labels:
-    app: beka
+    app: web
+  name: mynginx
 spec:
-  type: ClusterIP
   ports:
-  - port: 80
+  - nodePort: 32223
+    port: 80
+    protocol: TCP
     targetPort: 80
-    name: http
   selector:
-    app: beka
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nur-service
-  labels:
-    app: nur
-spec:
-  type: ClusterIP
-  ports:
-  - port: 80
-    targetPort: 80
-    name: http
-  selector:
-    app: nur
-
-
+    app: web
+  type: NodePort
