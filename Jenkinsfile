@@ -1,6 +1,14 @@
 pipeline {
 
   agent any
+  
+  
+  environment {
+    PROJECT_ID = 	'playground-s-11-8a1c0072'
+    CLUSTER_NAME = 'cluster-1'
+    LOCATION = 'us-central1-c'
+    CREDENTIALS_ID = 'project'
+  }
 
   stages {
 
@@ -10,14 +18,14 @@ pipeline {
       }
     }
 
-    stage('Deploy App') {
+    stage('deploytokubernetes') {
       steps {
-        script {
-          kubernetesDeploy(configs: "deployment.yaml", kubeconfigId: "KUBE_CONFIG")
+        step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+    
         }
       }
     }
 
   }
 
-}
+
