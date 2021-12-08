@@ -1,0 +1,121 @@
+#kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.2/deploy/static/provider/cloud/deploy.yaml
+#kubectl get deployments -n ingress-nginx
+#kubectl get services -n ingress-nginx
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beka
+  namespace: beka
+spec:
+  selector:
+    matchLabels:
+      app: beka
+  template:
+    metadata:
+      labels:
+        app: beka
+    spec:
+      containers:
+      - name: beka
+        image: nginx:latest
+        imagePullPolicy: Always
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/bash", "-c", "echo 'BEKA' > /usr/share/nginx/html/index.html"]
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nur
+  namespace: nur
+spec:
+  selector:
+    matchLabels:
+      app: nur
+  template:
+    metadata:
+      labels:
+        app: nur
+    spec:
+      containers:
+      - name: nur
+        image: nginx:latest
+        imagePullPolicy: Always
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/bash", "-c", "echo 'NURMUKHAMMED' > /usr/share/nginx/html/index.html"]
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: beka-service
+  namespace: beka
+  labels:
+    app: beka
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    name: http
+  selector:
+    app: beka
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nur-service
+  namespace: nur
+  labels:
+    app: nur
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    name: http
+  selector:
+    app: nur
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nur-ingress
+  namespace: nur
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: nur.antengineering.net # write here hostname
+    http:
+      paths:
+      - backend:
+          serviceName: nur-service
+          servicePort: 80
+        path: /
+        
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: beka-ingress
+  namespace: beka
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: beka.antengineering.net # write here hostname
+    http:
+      paths:
+      - backend:
+          serviceName: nur-service
+          servicePort: 80
+        path: /
