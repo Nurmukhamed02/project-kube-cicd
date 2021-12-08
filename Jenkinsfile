@@ -24,12 +24,12 @@ pipeline {
     
         }
       }
-  post {
-            success {
-                slackSend "Build deployed successfully - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
-    }
-
+  
+    stage('SlackNotification') {
+      steps {
+        slackSend (color: '#FFFF00', message: "STARTED: Job '${env.JOB_NAME}
+    [${env>BUILD_NUMBER}]' (${env.BUILD_URL})")
   }
   }
 }
-
+                   }
