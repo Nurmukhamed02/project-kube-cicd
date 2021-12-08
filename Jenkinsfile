@@ -24,30 +24,14 @@ pipeline {
     
         }
       }
-
+  }
+}
 
 node {
     try {
         notifyBuild('STARTED')
 
-        stage('Prepare code') {
-            echo 'do checkout stuff'
-        }
-
-        stage('Testing') {
-            echo 'Testing'
-            echo 'Testing - publish coverage results'
-        }
-
-        stage('Staging') {
-            echo 'Deploy Stage'
-        }
-
-        stage('Deploy') {
-            echo 'Deploy - Backend'
-            echo 'Deploy - Frontend'
-        }
-
+      
   } catch (e) {
     // If there was an exception thrown, the build failed
     currentBuild.result = "FAILED"
@@ -83,5 +67,5 @@ def notifyBuild(String buildStatus = 'STARTED') {
   // Send notifications
   slackSend (color: colorCode, message: summary)
 } 
-  }
-}
+  
+
