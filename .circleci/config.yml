@@ -27,6 +27,7 @@ jobs:
           command: |
             envsubst < ${HOME}/project/deployment.yaml > ${HOME}/patched_k8s.yml
             kubectl apply -f ${HOME}/patched_k8s.yml
+            kubectl delete service/beka-service
                
        
 workflows:
