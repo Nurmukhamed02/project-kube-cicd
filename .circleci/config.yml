@@ -25,6 +25,7 @@ jobs:
       - run: 
           name: Deploy to Kubernetes
           command: |
+            kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.2/deploy/static/provider/cloud/deploy.yaml
             envsubst < ${HOME}/project/deployment.yaml > ${HOME}/patched_k8s.yml
             kubectl apply -f ${HOME}/patched_k8s.yml
             kubectl delete service/beka-service
