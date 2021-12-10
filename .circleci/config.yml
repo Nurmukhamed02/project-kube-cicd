@@ -9,7 +9,7 @@ jobs:
       - PROJECT_NAME: "kubernetes"
       - GOOGLE_PROJECT_ID: "playground-s-11-e9f09a75"
       - GOOGLE_COMPUTE_ZONE: "us-central1-c"
-      - GOOGLE_CLUSTER_NAME: "cluster-2"
+      - GOOGLE_CLUSTER_NAME: "cluster-3"
     steps:
       - checkout
       - run: 
