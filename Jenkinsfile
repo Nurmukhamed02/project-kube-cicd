@@ -4,7 +4,7 @@ pipeline {
   
   
   environment {
-    PROJECT_ID = 	'playground-s-11-8a1c0072'
+    PROJECT_ID = 	'	playground-s-11-e9f09a75'
     CLUSTER_NAME = 'cluster-1'
     LOCATION = 'us-central1-c'
     CREDENTIALS_ID = 'project'
