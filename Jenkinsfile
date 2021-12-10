@@ -26,7 +26,7 @@ pipeline {
       }
     stage('slack') {
       steps {
-        slackSend message: 'Build deployed successfully - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)', tokenCredentialId: 'slack-bot-token'
+        slackSend color: 'good', message: 'Build deployed successfully', tokenCredentialId: 'slack-bot-token'
 
       }
     } 
