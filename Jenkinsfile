@@ -4,10 +4,10 @@ pipeline {
   
   
   environment {
-    PROJECT_ID = 	'	playground-s-11-e9f09a75'
+    PROJECT_ID = 	'playground-s-11-e9f09a75'
     CLUSTER_NAME = 'cluster-1'
     LOCATION = 'us-central1-c'
-    CREDENTIALS_ID = 'project'
+    CREDENTIALS_ID = 'kubernetes'
   }
 
   stages {
