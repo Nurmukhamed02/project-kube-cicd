@@ -26,7 +26,7 @@ pipeline {
       }
     stage('slack') {
       steps {
-        slackSend "Build deployed successfully - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+        slackSend color: 'good', message: 'successfully built'
 
       }
     } 
