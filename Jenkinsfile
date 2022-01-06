@@ -4,10 +4,10 @@ pipeline {
   
   
   environment {
-    PROJECT_ID = 	'playground-s-11-e9f09a75'
-    CLUSTER_NAME = 'cluster-2'
-    LOCATION = 'us-central1-c'
-    CREDENTIALS_ID = 'kubernetes'
+    PROJECT_ID = 	'euphoric-grin-335112'
+    CLUSTER_NAME = 'cluster-1'
+    LOCATION = 'us-central1-b'
+    CREDENTIALS_ID = 'project'
   }
 
   stages {
